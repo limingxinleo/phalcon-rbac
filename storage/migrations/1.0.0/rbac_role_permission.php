@@ -71,7 +71,15 @@ class RbacRolePermissionMigration_100 extends Migration
      */
     public function up()
     {
-
+        self::$_connection->insert(
+            "rbac_role_permission",
+            [1, 1, 1],
+            [
+                "id",
+                "role_id",
+                "permission_id",
+            ]
+        );
     }
 
     /**

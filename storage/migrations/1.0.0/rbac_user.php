@@ -39,7 +39,17 @@ class RbacUserMigration_100 extends Migration
                             'size' => 45,
                             'after' => 'id'
                         ]
-                    )
+                    ),
+                    new Column(
+                        'password',
+                        [
+                            'type' => Column::TYPE_VARCHAR,
+                            'notNull' => true,
+                            'default' => '',
+                            'size' => 45,
+                            'after' => 'name'
+                        ]
+                    ),
                 ],
                 'indexes' => [
                     new Index('PRIMARY', ['id'], 'PRIMARY')

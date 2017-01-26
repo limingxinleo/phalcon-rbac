@@ -71,7 +71,19 @@ class RbacRoleMigration_100 extends Migration
      */
     public function up()
     {
-
+        self::$_connection->insert(
+            "rbac_role",
+            [
+                1,
+                "超级管理员",
+                "超级管理员"
+            ],
+            [
+                "id",
+                "name",
+                "desc",
+            ]
+        );
     }
 
     /**
