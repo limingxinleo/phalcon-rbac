@@ -1,0 +1,29 @@
+{
+  "name": "phalcon-rbac",
+  "version": "1.0.0",
+  "description": "基于phalcon框架rbac设计的权限管理项目",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://limingxinleo@github.com/limingxinleo/phalcon-rbac.git"
+  },
+  "keywords": [
+    "phalcon",
+    "rbac"
+  ],
+  "author": "limx",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/limingxinleo/phalcon-rbac/issues"
+  },
+  "homepage": "https://github.com/limingxinleo/phalcon-rbac#readme",
+  "devDependencies": {
+    "webpack": "^1.14.0"
+  }
+}
