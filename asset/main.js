@@ -1,5 +1,6 @@
 /**
  * Created by limx on 2017/1/26.
  */
-$ = require("jquery");
+require("../node_modules/bootstrap/dist/css/bootstrap.min.css");
+var $ = require("jquery");
 console.log("aaa");
