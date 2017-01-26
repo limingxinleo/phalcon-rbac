@@ -5,7 +5,7 @@ var webpack = require('webpack');
 module.exports = {
     entry: {
         main: __dirname + "/asset/main.js",
-        vendor: ["jquery"]
+        vendor: ["jquery", "bootstrap"]
     },//已多次提及的唯一入口文件
     output: {
         path: __dirname + "/public",//打包后的文件存放的地方
