@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use Phalcon\Db\Column;
 use Phalcon\Db\Index;
@@ -29,7 +29,27 @@ class RbacRolePermissionMigration_100 extends Migration
                             'size' => 11,
                             'first' => true
                         ]
-                    )
+                    ),
+                    new Column(
+                        'role_id',
+                        [
+                            'type' => Column::TYPE_INTEGER,
+                            'unsigned' => true,
+                            'notNull' => true,
+                            'size' => 11,
+                            'after' => 'id'
+                        ]
+                    ),
+                    new Column(
+                        'permission_id',
+                        [
+                            'type' => Column::TYPE_INTEGER,
+                            'unsigned' => true,
+                            'notNull' => true,
+                            'size' => 11,
+                            'after' => 'role_id'
+                        ]
+                    ),
                 ],
                 'indexes' => [
                     new Index('PRIMARY', ['id'], 'PRIMARY')
