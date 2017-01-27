@@ -8,13 +8,14 @@
     <h1 class="page-header">用户详情</h1>
     <div class="table-responsive">
         <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>登录名</th>
+            </tr>
             <tbody>
             <tr>
-                <td>ID</td>
                 <td>{{ id }}</td>
-            </tr>
-            <tr>
-                <td>登录名</td>
                 <td>{{ name }}</td>
             </tr>
             </tbody>
