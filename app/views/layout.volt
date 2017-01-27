@@ -20,7 +20,7 @@
 </head>
 <body>
 {% block content %}{% endblock %}
-
+<div id="modal"></div>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="{{ static_url('/lib/jquery-2.2.4/jquery.min.js') }}"></script>
 <script src="{{ static_url('/lib/bootstrap-3.3.7/js/bootstrap.min.js') }}"></script>

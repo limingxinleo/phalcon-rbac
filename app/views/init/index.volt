@@ -35,7 +35,7 @@
     <script>
         function sub() {
             if (!checkInput()) {
-                $.alert(11);
+                $.error("请核实您的输入信息！");
             }
             var name = $("#name").val();
             var pass = $("#password").val();
