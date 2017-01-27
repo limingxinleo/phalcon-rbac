@@ -51,16 +51,6 @@ class RbacPermission extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Returns table name mapped in the model.
-     *
-     * @return string
-     */
-    public function getSource()
-    {
-        return 'rbac_permission';
-    }
-
-    /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
@@ -96,6 +86,16 @@ class RbacPermission extends \Phalcon\Mvc\Model
             LEFT JOIN rbac_role AS r ON r.id = rp.role_id
             WHERE r.id IN ({$str}) AND p.root = 1;";
         return \limx\phalcon\DB::fetch($sql);
+    }
+
+    /**
+     * Returns table name mapped in the model.
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return 'rbac_permission';
     }
 
 }

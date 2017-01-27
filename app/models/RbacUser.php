@@ -37,16 +37,6 @@ class RbacUser extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Returns table name mapped in the model.
-     *
-     * @return string
-     */
-    public function getSource()
-    {
-        return 'rbac_user';
-    }
-
-    /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
@@ -68,6 +58,7 @@ class RbacUser extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
+
     public static function isFirstUse()
     {
         $sql = "SELECT * FROM rbac_user AS u
@@ -76,6 +67,16 @@ class RbacUser extends \Phalcon\Mvc\Model
         $user = \limx\phalcon\DB::fetch($sql);
         if (empty($user)) return true;
         return false;
+    }
+
+    /**
+     * Returns table name mapped in the model.
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return 'rbac_user';
     }
 
 }
