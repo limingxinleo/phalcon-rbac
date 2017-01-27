@@ -14,9 +14,16 @@ class UserController extends ControllerBase
      */
     public function pfnUserListAction()
     {
-        $user = RbacUser::find();
-        return self::success($user);
+        $pageIndex = $this->request->get('pageIndex');
+        $pageSize = $this->request->get('pageSize');
+        $user = RbacUser::find([
+            'offset' => $pageIndex * $pageSize,
+            'limit' => $pageSize
+        ]);
+        $data['data'] = $user;
+        $data['count'] = RbacUser::count();
+        return self::success($data);
     }
-    
+
 }
 
