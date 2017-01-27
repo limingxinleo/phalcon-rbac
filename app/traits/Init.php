@@ -178,6 +178,9 @@ trait Init
         $token = session('RBAC_TOKEN');
         $key = sprintf("user_%d", $id);
         $user = cache($key);
+        if (empty($user)) {
+            return false;
+        }
         if ($user['time'] < time()) {
             return false;
         }

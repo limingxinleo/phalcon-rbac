@@ -2,7 +2,6 @@
 
 namespace MyApp\Controllers;
 
-use MyApp\Models\RbacUser;
 use MyApp\Traits\Init;
 use MyApp\Traits\System\Response;
 

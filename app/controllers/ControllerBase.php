@@ -9,9 +9,13 @@ use MyApp\Traits\Init;
 class ControllerBase extends Controller
 {
     use Response, Init;
+    protected $user = [];
 
     public function initialize()
     {
-
+        $user = self::getUserCache();
+        if ($user === false) {
+            return $this->response->redirect("/login/index");
+        }
     }
 }
