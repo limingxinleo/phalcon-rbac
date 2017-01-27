@@ -82,4 +82,20 @@ class RbacPermission extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
+    /**
+     * [isRoot desc]
+     * @desc 判断这些角色ID是否有超级管理员权限
+     * @author limx
+     * @param $ids 角色ID
+     */
+    public static function isRoot($ids)
+    {
+        $str = implode(",", $ids);
+        $sql = "SELECT p.* FROM `rbac_permission` AS p
+            LEFT JOIN `rbac_role_permission` AS rp ON p.id = rp.permission_id
+            LEFT JOIN rbac_role AS r ON r.id = rp.role_id
+            WHERE r.id IN ({$str}) AND p.root = 1;";
+        return \limx\phalcon\DB::fetch($sql);
+    }
+
 }

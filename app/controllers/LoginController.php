@@ -4,10 +4,11 @@ namespace MyApp\Controllers;
 
 use MyApp\Models\RbacUser;
 use MyApp\Traits\Init;
+use MyApp\Traits\System\Response;
 
 class LoginController extends \Phalcon\Mvc\Controller
 {
-    use Init;
+    use Response, Init;
 
     public function initialize()
     {
@@ -26,6 +27,19 @@ class LoginController extends \Phalcon\Mvc\Controller
     public function indexAction()
     {
         return $this->view->render('login', 'index');
+    }
+
+    /**
+     * [pfnLoginAction desc]
+     * @desc 登录
+     * @author limx
+     */
+    public function pfnLoginAction()
+    {
+        $name = $this->request->get("name");
+        $password = $this->request->get("password");
+        $res = self::login($name, $password);
+        return self::success([$res]);
     }
 
 }

@@ -11,6 +11,7 @@
 namespace MyApp\Traits;
 
 use limx\func\Match;
+use MyApp\Models\RbacPermission;
 use MyApp\Models\RbacUser;
 use MyApp\Models\RbacUserRole;
 
@@ -92,7 +93,92 @@ trait Init
         return false;
     }
 
-    public static function saveUser()
+    public static function role($uid)
+    {
+
+    }
+
+    /**
+     * [login desc]
+     * @desc 登录
+     * @author limx
+     * @param $name
+     * @param $password
+     */
+    public static function login($name, $password)
+    {
+        $password = self::setPassword($password);
+        // TODO: 可修改为自己的管理员模型
+        $user = RbacUser::findFirst([
+            'conditions' => 'name = ?0 AND password = ?1',
+            'bind' => [$name, $password],
+        ]);
+        if (empty($user)) {
+            return false;
+        }
+        $roles = RbacUserRole::find([
+            'conditions' => 'user_id=?0',
+            'bind' => [$user->id]
+        ]);
+        if (count($roles) == 0) {
+            return false;
+        }
+        $role_id = [];
+        foreach ($roles as $role) {
+            $role_id[] = $role->role_id;
+        }
+        $res = RbacPermission::isRoot($role_id);
+        if ($res) {
+            self::setUserCache($user);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * [cacheUser desc]
+     * @desc 缓存管理员信息
+     * @author limx
+     * @param $user
+     */
+    public static function setUserCache($user)
+    {
+        $name = $user->name;
+        $id = $user->id;
+        $token = uniqid();
+        $time = time() + 3600;
+        $data = [
+            'id' => $id,
+            'name' => $name,
+            'token' => $token,
+            'time' => $time,
+        ];
+
+        $key = sprintf("user_%d", $id);
+        $val = json_encode($data);
+        cache($key, $val);
+        session("RBAC_ID", $id);
+        session("RBAC_TOKEN", $token);
+    }
+
+    /**
+     * [clearUserCache desc]
+     * @desc 清除管理员缓存
+     * @author limx
+     * @param $user_id
+     */
+    public static function clearUserCache($user_id)
+    {
+
+    }
+
+    /**
+     * [getUserCache desc]
+     * @desc 获取管理员缓存
+     * @author limx
+     * @param $user_id
+     */
+    public static function getUserCache($user_id)
     {
 
     }
