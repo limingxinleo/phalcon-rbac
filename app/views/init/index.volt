@@ -54,6 +54,7 @@
             $.post(url, json, function (jsonData) {
                 if (jsonData.status == 1) {
                     $.success("初始化完毕");
+                    location.reload();
                 } else {
                     $.error(jsonData.message);
                 }

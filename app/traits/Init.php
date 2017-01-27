@@ -12,6 +12,7 @@ namespace MyApp\Traits;
 
 use limx\func\Match;
 use MyApp\Models\RbacUser;
+use MyApp\Models\RbacUserRole;
 
 trait Init
 {
@@ -34,9 +35,9 @@ trait Init
      */
     public static function setPassword($password)
     {
-        if (strlen($password) < 6) {
-            return dispatch_error(10001, self::getErrorCode(10001));
-        }
+        // TODO:完善自己的密码算法
+        $key = env("UNIQUE_ID");
+        return md5(md5($password) . $key);
     }
 
     /**
@@ -57,18 +58,41 @@ trait Init
      * @desc 增加管理员
      * @author limx
      */
-    public static function addAdmin($name, $password)
+    public static function addUser($name, $password)
     {
         // 完善自己的添加管理员方法
         $user = new RbacUser();
         $user->name = $name;
-        $user->password = $password;
-        return true;
-
+        $user->password = self::setPassword($password);
+        if ($user->save()) {
+            return $user->id;
+        }
         return false;
     }
 
-    public static function saveAdmin()
+    /**
+     * [addUserRole desc]
+     * @desc 新增用户角色关系对应数据
+     * @author limx
+     * @param $uid
+     * @param $role_id
+     * @return bool
+     */
+    public static function addUserRole($uid, $role_id)
+    {
+        if (!Match::isInt($uid) || !Match::isInt($role_id)) {
+            return false;
+        }
+        $ur = new RbacUserRole();
+        $ur->user_id = $uid;
+        $ur->role_id = $role_id;
+        if ($ur->save()) {
+            return true;
+        }
+        return false;
+    }
+
+    public static function saveUser()
     {
 
     }
