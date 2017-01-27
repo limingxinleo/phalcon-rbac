@@ -3,6 +3,7 @@
 namespace MyApp\Controllers\Api;
 
 use MyApp\Controllers\ControllerBase;
+use MyApp\Models\RbacRole;
 use MyApp\Models\RbacUser;
 
 class UserController extends ControllerBase
@@ -23,6 +24,18 @@ class UserController extends ControllerBase
         $data['data'] = $user;
         $data['count'] = RbacUser::count();
         return self::success($data);
+    }
+
+    /**
+     * [pfnUserRoleListAction desc]
+     * @desc 获取用户的角色列表
+     * @author limx
+     */
+    public function pfnUserRoleListAction()
+    {
+        $id = $this->request->get('uid');
+        $roles = RbacRole::getRolesByUserId($id);
+        return self::success($roles);
     }
 
 }

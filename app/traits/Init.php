@@ -190,4 +190,17 @@ trait Init
 
         return $user;
     }
+
+    /**
+     * [getUserById desc]
+     * @desc 获取管理员数据
+     * @author limx
+     * @param $id
+     */
+    public function getUserById($id)
+    {
+        // TODO:重写自己的获取数据函数
+        $res = RbacUser::findFirst($id);
+        return $res;
+    }
 }

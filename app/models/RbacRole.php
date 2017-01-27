@@ -68,4 +68,18 @@ class RbacRole extends \Phalcon\Mvc\Model
         return 'rbac_role';
     }
 
+    /**
+     * [getRolesByUserId desc]
+     * @desc 获得某人所有角色
+     * @author limx
+     * @param $id
+     */
+    public static function getRolesByUserId($id)
+    {
+        $sql = "SELECT * FROM rbac_role AS r
+            LEFT JOIN rbac_user_role AS ur ON r.id = ur.role_id
+            WHERE ur.user_id = ?;";
+        return \limx\phalcon\DB::query($sql, [$id]);
+    }
+
 }

@@ -10,12 +10,25 @@
 // +----------------------------------------------------------------------
 namespace MyApp\Controllers;
 
+use MyApp\Models\RbacRole;
+use MyApp\Models\RbacUser;
+
 class IndexController extends ControllerBase
 {
     public function indexAction()
     {
         $this->view->version = di('config')->version;
         return $this->view->render('index', 'index');
+    }
+
+    public function userInfoAction($id)
+    {
+        $user = self::getUserById($id);
+        $roles = RbacRole::getRolesByUserId($id);
+        $this->view->id = $id;
+        $this->view->name = $user->name;
+        $this->view->roles = $roles;
+        return $this->view->render('index', 'user');
     }
 
 
