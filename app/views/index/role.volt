@@ -2,9 +2,9 @@
 {% block content %}
     <ol class="breadcrumb">
         <li><a href="{{ url('/index/index') }}">用户管理</a></li>
-        <li class="active">用户列表</li>
+        <li class="active">角色列表</li>
     </ol>
-    <h1 class="page-header">用户列表</h1>
+    <h1 class="page-header">角色列表</h1>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
