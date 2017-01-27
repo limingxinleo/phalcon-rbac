@@ -82,4 +82,18 @@ class RbacRole extends \Phalcon\Mvc\Model
         return \limx\phalcon\DB::query($sql, [$id]);
     }
 
+    /**
+     * [getRolesAndStatus desc]
+     * @desc 获取所有角色 并 返回是否拥有
+     * @author limx
+     * @param $id
+     */
+    public static function getRolesAndStatus($id)
+    {
+        $sql = "SELECT r.*,
+            (SELECT count(0) FROM rbac_user_role WHERE user_id = ? AND role_id = r.id ) AS `status` 
+            FROM rbac_role AS r;";
+        return \limx\phalcon\DB::query($sql, [$id]);
+    }
+
 }

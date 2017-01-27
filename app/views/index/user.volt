@@ -20,24 +20,14 @@
             </tbody>
         </table>
     </div>
-    <h2 class="page-header">我的角色</h2>
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th>角色</th>
-                <th>详情</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody id="list">
-            </tbody>
-        </table>
-        <div id="page"></div>
-    </div>
+    <h2 class="page-header">
+        我的角色
+        <a onclick="btnSave()" class="btn btn-primary" style="float:right">保存</a>
+    </h2>
+    <div id="list"></div>
 
     <input type="hidden" id="postUrl" value="{{ url('/api/user/pfnUserRoleList') }}">
-    <input type="hidden" id="infoUrl" value="{{ url('/index/userInfo') }}">
+    <input type="hidden" id="saveUrl" value="{{ url('/api/user/pfnSaveUserRole') }}">
     <input type="hidden" id="id" value="{{ id }}">
 {% endblock %}
 {% block js %}
@@ -57,13 +47,13 @@
                 if (jsonData.status == 1) {
                     var html = "";
                     $.each(jsonData.data, function (i, v) {
-                        html += '<tr>';
-                        html += '<td>' + v.name + '</td>';
-                        html += '<td>' + v.desc + '</td>';
-                        html += '<td>';
-                        html += '<a onclick="btnDel(' + v.id + ')" class="btn btn-danger btn-sm">删除</a>';
-                        html += '</td>';
-                        html += '</tr>';
+                        var checked = v.status > 0 ? "checked=checked" : "";
+                        html += '<div class="checkbox">';
+                        html += '<label>';
+                        html += '<input name="role" type="checkbox" value="' + v.id + '" ' + checked + '>';
+                        html += v.name + ' | ' + v.desc;
+                        html += '</label>';
+                        html += '</div>';
                     });
                     $("#list").html(html);
                 } else {
@@ -72,8 +62,26 @@
             }, "json");
         }
 
-        function btnDel(id) {
-            $.warn(id);
+        function btnSave() {
+            var id = $("#id").val();
+            var role = $("input[name=role]:checked");
+            var roles = [];
+            $.each(role, function (i, v) {
+                roles.push($(v).val());
+            })
+            var json = {
+                uid: id,
+                role: roles
+            };
+            var url = $("#saveUrl").val();
+            $.post(url, json, function (jsonData) {
+                if (jsonData.status == 1) {
+//                    console.log(jsonData);
+                    location.reload();
+                } else {
+                    $.error(jsonData.message);
+                }
+            }, "json");
         }
     </script>
 {% endblock %}

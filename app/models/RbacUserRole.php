@@ -68,4 +68,33 @@ class RbacUserRole extends \Phalcon\Mvc\Model
         return 'rbac_user_role';
     }
 
+    /**
+     * [del desc]
+     * @desc 删除某人所有关系
+     * @author limx
+     * @param $uid
+     */
+    public static function del($uid)
+    {
+        $sql = "DELETE FROM rbac_user_role WHERE user_id=?";
+        return \limx\phalcon\DB::execute($sql, [$uid]);
+    }
+
+    /**
+     * [add desc]
+     * @desc 增加用户角色关系
+     * @author limx
+     * @param $uid
+     * @param $role
+     */
+    public static function add($uid, $role)
+    {
+        $sql = "INSERT INTO rbac_user_role(user_id,role_id) VALUES(?,?)";
+        foreach ($role as $role_id) {
+            $res = \limx\phalcon\DB::execute($sql, [$uid, $role_id]);
+            if ($res === false) return false;
+        }
+        return true;
+    }
+
 }
