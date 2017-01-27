@@ -4,7 +4,7 @@
         <div class="jumbotron">
             <h1>Welcome</h1>
             <p>RBAC权限管理系统</p>
-            <p>初始化管理员信息</p>
+            <p>登录</p>
             <p>
                 <a class="btn btn-primary btn-lg" href="https://github.com/limingxinleo/phalcon-rbac" role="button">
                     Learn more
@@ -48,8 +48,7 @@
             $.post(url, json, function (jsonData) {
                 if (jsonData.status == 1) {
                     var target = $("#targetUrl").val();
-                    console.log(jsonData);
-                    //location = target;
+                    location = target;
                 } else {
                     $.error(jsonData.message);
                 }

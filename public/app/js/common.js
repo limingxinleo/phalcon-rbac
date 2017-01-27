@@ -27,3 +27,6 @@ jQuery.warn = function (msg) {
 jQuery.error = function (msg) {
     jQuery.alert(msg, "danger");
 };
+jQuery.setSideBar = function (index) {
+    $(".nav-sidebar>li").eq(index).addClass("active");
+};

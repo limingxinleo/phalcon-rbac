@@ -93,11 +93,6 @@ trait Init
         return false;
     }
 
-    public static function role($uid)
-    {
-
-    }
-
     /**
      * [login desc]
      * @desc 登录
@@ -155,8 +150,7 @@ trait Init
         ];
 
         $key = sprintf("user_%d", $id);
-        $val = json_encode($data);
-        cache($key, $val);
+        cache($key, $data);
         session("RBAC_ID", $id);
         session("RBAC_TOKEN", $token);
     }
@@ -178,8 +172,19 @@ trait Init
      * @author limx
      * @param $user_id
      */
-    public static function getUserCache($user_id)
+    public static function getUserCache()
     {
+        $id = session('RBAC_ID');
+        $token = session('RBAC_TOKEN');
+        $key = sprintf("user_%d", $id);
+        $user = cache($key);
+        if ($user['time'] < time()) {
+            return false;
+        }
+        if ($user['token'] != $token) {
+            return false;
+        }
 
+        return $user;
     }
 }

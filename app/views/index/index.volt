@@ -159,3 +159,10 @@
         </table>
     </div>
 {% endblock %}
+{% block js %}
+    <script>
+        $(function () {
+            $.setSideBar(0);
+        })
+    </script>
+{% endblock %}
