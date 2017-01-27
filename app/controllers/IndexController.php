@@ -17,7 +17,6 @@ class IndexController extends ControllerBase
 {
     public function indexAction()
     {
-        $this->view->version = di('config')->version;
         return $this->view->render('index', 'index');
     }
 
@@ -31,9 +30,9 @@ class IndexController extends ControllerBase
         return $this->view->render('index', 'user');
     }
 
-    public function role()
+    public function roleAction()
     {
-        
+        return $this->view->render('index', 'role');
     }
 
 
