@@ -54,7 +54,7 @@ class RbacUserRoleMigration_100 extends Migration
                 ],
                 'indexes' => [
                     new Index('PRIMARY', ['id'], 'PRIMARY'),
-                    new Index('user_role_unique', ['user_id', 'role_id'], 'UNIQUE'),
+                    new Index('USER_ROLE_UNIQUE', ['user_id', 'role_id'], 'UNIQUE'),
                 ],
                 'options' => [
                     'TABLE_TYPE' => 'BASE TABLE',

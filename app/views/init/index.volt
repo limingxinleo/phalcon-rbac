@@ -4,6 +4,7 @@
         <div class="jumbotron">
             <h1>Welcome</h1>
             <p>RBAC权限管理系统</p>
+            <p>初始化管理员信息</p>
             <p>
                 <a class="btn btn-primary btn-lg" href="https://github.com/limingxinleo/phalcon-rbac" role="button">
                     Learn more
@@ -30,16 +31,33 @@
             </div>
         </div>
     </div>
+    <input type="hidden" id="postUrl" value="{{ url('/init/pfnSave') }}">
 {% endblock %}
 {% block js %}
     <script>
         function sub() {
             if (!checkInput()) {
                 $.error("请核实您的输入信息！");
+                return;
             }
             var name = $("#name").val();
             var pass = $("#password").val();
             var pass2 = $("#password2").val();
+
+            var json = {
+                name: name,
+                password: pass,
+                password2: pass2
+            };
+            var url = $("#postUrl").val();
+
+            $.post(url, json, function (jsonData) {
+                if (jsonData.status == 1) {
+                    $.success("初始化完毕");
+                } else {
+                    $.error(jsonData.message);
+                }
+            }, "json");
         }
 
         function checkInput() {

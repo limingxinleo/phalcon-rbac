@@ -70,7 +70,12 @@ class RbacUser extends \Phalcon\Mvc\Model
 
     public static function isFirstUse()
     {
-        return true;
+        $sql = "SELECT * FROM rbac_user AS u
+            LEFT JOIN rbac_user_role AS ur ON u.id = ur.user_id
+            WHERE ur.role_id = 1; ";
+        $user = \limx\phalcon\DB::fetch($sql);
+        if (empty($user)) return true;
+        return false;
     }
 
 }

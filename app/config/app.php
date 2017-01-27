@@ -36,4 +36,9 @@ return [
     'cron-tasks' => [
         // ['task' => 'System\\Cron', 'action' => 'test', 'params' => [], 'time' => '05:21'],
     ],
+    'error_code' => [
+        400 => '页面找不到了',
+        500 => '服务器错误',
+        10001 => '密码安全系数过低！',
+    ],
 ];

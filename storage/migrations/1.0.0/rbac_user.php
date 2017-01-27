@@ -52,7 +52,8 @@ class RbacUserMigration_100 extends Migration
                     ),
                 ],
                 'indexes' => [
-                    new Index('PRIMARY', ['id'], 'PRIMARY')
+                    new Index('PRIMARY', ['id'], 'PRIMARY'),
+                    new Index('NAME_UNIQUE', ['name'], 'UNIQUE'),
                 ],
                 'options' => [
                     'TABLE_TYPE' => 'BASE TABLE',
