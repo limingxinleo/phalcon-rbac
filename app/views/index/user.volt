@@ -76,7 +76,6 @@
             var url = $("#saveUrl").val();
             $.post(url, json, function (jsonData) {
                 if (jsonData.status == 1) {
-//                    console.log(jsonData);
                     location.reload();
                 } else {
                     $.error(jsonData.message);

@@ -31,5 +31,10 @@ class IndexController extends ControllerBase
         return $this->view->render('index', 'user');
     }
 
+    public function role()
+    {
+        
+    }
+
 
 }
