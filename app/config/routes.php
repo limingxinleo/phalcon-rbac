@@ -17,4 +17,16 @@ $router->add('/:controller', [
     'controller' => 1
 ]);
 
+$router->add('/api/:controller/:action/:params', [
+    'namespace' => 'MyApp\Controllers\Api',
+    'controller' => 1,
+    'action' => 2,
+    'params' => 3,
+]);
+
+$router->add('/api/:controller', [
+    'namespace' => 'MyApp\Controllers\Api',
+    'controller' => 1
+]);
+
 return $router;

@@ -3,14 +3,20 @@
 namespace MyApp\Controllers\Api;
 
 use MyApp\Controllers\ControllerBase;
+use MyApp\Models\RbacUser;
 
 class UserController extends ControllerBase
 {
-
-    public function indexAction()
+    /**
+     * [pfnUserListAction desc]
+     * @desc 获取用户列表
+     * @author limx
+     */
+    public function pfnUserListAction()
     {
-
+        $user = RbacUser::find();
+        return self::success($user);
     }
-
+    
 }
 
