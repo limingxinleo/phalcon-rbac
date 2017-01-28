@@ -3,11 +3,13 @@
     <ol class="breadcrumb">
         <li><a href="{{ url('/index/index') }}">首页</a></li>
         <li><a href="{{ url('/index/permission') }}">权限列表</a></li>
-        <li class="active">权限列表</li>
+        {% for item in parent %}
+            <li><a href="{{ url('/index/permission/')~item['id'] }}">{{ item['name'] }}</a></li>
+        {% endfor %}
     </ol>
     <h1 class="page-header">
         权限列表
-        <a href="{{ url('/index/addPermission/0') }}" class="btn btn-primary" style="float:right">新增</a>
+        <a onclick="btnAdd({{ pid }})" class="btn btn-primary" style="float:right">新增</a>
     </h1>
     <div class="table-responsive">
         <table class="table table-striped">
@@ -25,7 +27,7 @@
         <div id="page"></div>
     </div>
     <input type="hidden" id="postUrl" value="{{ url('/api/permission/pfnList') }}">
-    <input type="hidden" id="infoUrl" value="{{ url('/index/permissionInfo') }}">
+    <input type="hidden" id="infoUrl" value="{{ url('/index/permission') }}">
     <input type="hidden" id="addUrl" value="{{ url('/index/addPermission') }}">
     <input type="hidden" id="pid" value="{{ pid }}">
 {% endblock %}
@@ -63,7 +65,7 @@
                         html += '<td>' + v.name + '</td>';
                         html += '<td>' + (v.root == 1 ? "全权限" : v.url) + '</td>';
                         html += '<td>';
-                        html += '<a onclick="toInfo(' + v.id + ')" class="btn btn-default">详情</a>';
+                        html += '<a onclick="btnInfo(' + v.id + ')" class="btn btn-default">详情</a>';
                         html += '<a onclick="btnAdd(' + v.id + ')" class="btn btn-default">新增子权限</a>';
                         html += '</td>';
                         html += '</tr>';
@@ -89,7 +91,7 @@
             });
         }
 
-        function toInfo(id) {
+        function btnInfo(id) {
             var url = $("#infoUrl").val();
             location = url + "/" + id;
         }

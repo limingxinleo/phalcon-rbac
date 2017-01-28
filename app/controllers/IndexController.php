@@ -44,7 +44,10 @@ class IndexController extends ControllerBase
 
     public function permissionAction($pid = 0)
     {
+        self::getPermissionParent($pid, $parent);
+        krsort($parent);
         $this->view->pid = $pid;
+        $this->view->parent = $parent;
         return $this->view->render('index', 'permission');
     }
 

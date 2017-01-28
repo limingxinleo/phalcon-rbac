@@ -73,6 +73,19 @@ class RbacPermission extends \Phalcon\Mvc\Model
     }
 
     /**
+     * [findById desc]
+     * @desc 获取一条数据
+     * @author limx
+     * @param $id
+     * @return array
+     */
+    public static function findById($id)
+    {
+        $sql = "SELECT * FROM rbac_permission WHERE id = ?";
+        return \limx\phalcon\DB::fetch($sql, [$id]);
+    }
+
+    /**
      * [isRoot desc]
      * @desc 判断这些角色ID是否有超级管理员权限
      * @author limx

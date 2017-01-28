@@ -55,7 +55,7 @@
             $.post(url, json, function (jsonData) {
                 if (jsonData.status == 1) {
                     $.success("保存成功！", function () {
-                        location = $("#redirectUrl").val();
+                        location = jsonData.data.redirectUrl;
                     });
                 } else {
                     $.error(jsonData.message);

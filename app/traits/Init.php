@@ -203,4 +203,22 @@ trait Init
         $res = RbacUser::findFirst($id);
         return $res;
     }
+
+    /**
+     * [getParent desc]
+     * @desc 获取父节点
+     * @author limx
+     * @param int $pid
+     * @param $parent
+     * @return bool
+     */
+    public static function getPermissionParent($pid = 0, &$parent)
+    {
+        if ($pid === 0) {
+            return true;
+        }
+        $res = RbacPermission::findById($pid);
+        $parent[] = $res;
+        self::getPermissionParent($res['pid'], $parent);
+    }
 }

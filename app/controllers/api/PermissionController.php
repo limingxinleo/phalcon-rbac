@@ -28,7 +28,10 @@ class PermissionController extends ControllerBase
             'limit' => $pageSize
         ]);
         $data['data'] = $user;
-        $data['count'] = RbacPermission::count();
+        $data['count'] = RbacPermission::count([
+            'conditions' => 'pid=?0',
+            'bind' => [$pid],
+        ]);
         return self::success($data);
     }
 
@@ -49,11 +52,13 @@ class PermissionController extends ControllerBase
             $permission->url = $url;
             $permission->root = 0;
             if ($permission->save()) {
-                return self::success();
+                $res['redirectUrl'] = url('index/permission/' . $pid);
+                return self::success($res);
             }
         }
         return self::error("权限保存失败！");
     }
+
 
 }
 
