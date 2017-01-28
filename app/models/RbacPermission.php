@@ -98,4 +98,18 @@ class RbacPermission extends \Phalcon\Mvc\Model
         return 'rbac_permission';
     }
 
+    /**
+     * [getPermissionsAndStatus desc]
+     * @desc 获取权限列表 与 此角色是否拥有状态
+     * @author limx
+     * @param $id
+     */
+    public static function getPermissionsAndStatus($id)
+    {
+        $sql = "SELECT p.*,
+            (SELECT count(0) FROM rbac_role_permission WHERE role_id = ? AND permission_id = p.id ) AS `status` 
+            FROM rbac_permission AS p;";
+        return \limx\phalcon\DB::query($sql, [$id]);
+    }
+
 }

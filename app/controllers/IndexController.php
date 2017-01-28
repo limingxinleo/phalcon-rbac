@@ -35,5 +35,12 @@ class IndexController extends ControllerBase
         return $this->view->render('index', 'role');
     }
 
+    public function roleInfoAction($id)
+    {
+        $role = RbacRole::findFirst($id);
+        $this->view->role = $role;
+        return $this->view->render('index', 'role_info');
+    }
+
 
 }

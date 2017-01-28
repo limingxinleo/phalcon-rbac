@@ -31,7 +31,7 @@ class RbacPermissionMigration_100 extends Migration
                         ]
                     ),
                     new Column(
-                        'root',
+                        'pid',
                         [
                             'type' => Column::TYPE_INTEGER,
                             'notNull' => false,
@@ -41,37 +41,39 @@ class RbacPermissionMigration_100 extends Migration
                         ]
                     ),
                     new Column(
-                        'module',
+                        'root',
                         [
-                            'type' => Column::TYPE_VARCHAR,
+                            'type' => Column::TYPE_INTEGER,
                             'notNull' => false,
-                            'size' => 45,
-                            'after' => 'root'
+                            'default' => 0,
+                            'size' => 11,
+                            'after' => 'pid'
                         ]
                     ),
                     new Column(
-                        'controller',
+                        'name',
                         [
                             'type' => Column::TYPE_VARCHAR,
                             'notNull' => false,
                             'size' => 45,
-                            'after' => 'module',
-                            'comment' => 'module-controller',
+                            'after' => 'root',
+                            'comment' => '权限名称'
                         ]
                     ),
                     new Column(
-                        'action',
+                        'url',
                         [
                             'type' => Column::TYPE_VARCHAR,
                             'notNull' => false,
                             'size' => 45,
-                            'after' => 'controller',
+                            'after' => 'name',
                             'comment' => 'module-controller-action',
                         ]
                     ),
                 ],
                 'indexes' => [
-                    new Index('PRIMARY', ['id'], 'PRIMARY')
+                    new Index('PRIMARY', ['id'], 'PRIMARY'),
+                    new Index('URL_INDEX', ['url']),
                 ],
                 'options' => [
                     'TABLE_TYPE' => 'BASE TABLE',
@@ -92,10 +94,12 @@ class RbacPermissionMigration_100 extends Migration
     {
         self::$_connection->insert(
             "rbac_permission",
-            [1, 1],
+            [1, 0, 1, "超级管理员权限"],
             [
                 "id",
+                "pid",
                 "root",
+                "name",
             ]
         );
     }
