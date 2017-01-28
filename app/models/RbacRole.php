@@ -59,16 +59,6 @@ class RbacRole extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Returns table name mapped in the model.
-     *
-     * @return string
-     */
-    public function getSource()
-    {
-        return 'rbac_role';
-    }
-
-    /**
      * [getRolesByUserId desc]
      * @desc 获得某人所有角色
      * @author limx
@@ -94,6 +84,16 @@ class RbacRole extends \Phalcon\Mvc\Model
             (SELECT count(0) FROM rbac_user_role WHERE user_id = ? AND role_id = r.id ) AS `status` 
             FROM rbac_role AS r;";
         return \limx\phalcon\DB::query($sql, [$id]);
+    }
+
+    /**
+     * Returns table name mapped in the model.
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return 'rbac_role';
     }
 
 }

@@ -19,6 +19,13 @@ class RbacPermission extends \Phalcon\Mvc\Model
      * @var integer
      * @Column(type="integer", length=11, nullable=true)
      */
+    public $pid;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", length=11, nullable=true)
+     */
     public $root;
 
     /**
@@ -26,21 +33,14 @@ class RbacPermission extends \Phalcon\Mvc\Model
      * @var string
      * @Column(type="string", length=45, nullable=true)
      */
-    public $module;
+    public $name;
 
     /**
      *
      * @var string
      * @Column(type="string", length=45, nullable=true)
      */
-    public $controller;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=45, nullable=true)
-     */
-    public $action;
+    public $url;
 
     /**
      * Initialize method for model.
@@ -89,16 +89,6 @@ class RbacPermission extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Returns table name mapped in the model.
-     *
-     * @return string
-     */
-    public function getSource()
-    {
-        return 'rbac_permission';
-    }
-
-    /**
      * [getPermissionsAndStatus desc]
      * @desc 获取权限列表 与 此角色是否拥有状态
      * @author limx
@@ -110,6 +100,16 @@ class RbacPermission extends \Phalcon\Mvc\Model
             (SELECT count(0) FROM rbac_role_permission WHERE role_id = ? AND permission_id = p.id ) AS `status` 
             FROM rbac_permission AS p;";
         return \limx\phalcon\DB::query($sql, [$id]);
+    }
+
+    /**
+     * Returns table name mapped in the model.
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return 'rbac_permission';
     }
 
 }

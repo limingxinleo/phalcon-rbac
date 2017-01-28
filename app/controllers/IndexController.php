@@ -47,8 +47,16 @@ class IndexController extends ControllerBase
         return $this->view->render('index', 'permission');
     }
 
-    public function addPermissionAction()
+    /**
+     * [addPermissionAction desc]
+     * @desc 增加权限
+     * @author limx
+     * @param $pid
+     * @return mixed
+     */
+    public function addPermissionAction($pid)
     {
+        $this->view->pid = $pid;
         return $this->view->render('index', 'permission_add');
     }
 

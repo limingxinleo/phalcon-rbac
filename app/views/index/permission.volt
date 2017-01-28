@@ -6,7 +6,7 @@
     </ol>
     <h1 class="page-header">
         权限列表
-        <a href="{{ url('/index/addPermission') }}" class="btn btn-primary" style="float:right">新增</a>
+        <a href="{{ url('/index/addPermission/0') }}" class="btn btn-primary" style="float:right">新增</a>
     </h1>
     <div class="table-responsive">
         <table class="table table-striped">
@@ -23,7 +23,7 @@
         </table>
         <div id="page"></div>
     </div>
-    <input type="hidden" id="postUrl" value="{{ url('/api/permission/pfnPermissionList') }}">
+    <input type="hidden" id="postUrl" value="{{ url('/api/permission/pfnList') }}">
     <input type="hidden" id="infoUrl" value="{{ url('/index/permissionInfo') }}">
 {% endblock %}
 {% block js %}

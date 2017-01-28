@@ -15,6 +15,9 @@ class ControllerBase extends Controller
     {
         $user = self::getUserCache();
         if ($user === false) {
+            if ($this->request->isPost()) {
+                return self::error("登录超时！");
+            }
             return $this->response->redirect("/login/index");
         }
     }

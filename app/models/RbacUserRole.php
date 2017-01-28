@@ -59,16 +59,6 @@ class RbacUserRole extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Returns table name mapped in the model.
-     *
-     * @return string
-     */
-    public function getSource()
-    {
-        return 'rbac_user_role';
-    }
-
-    /**
      * [del desc]
      * @desc 删除某人所有关系
      * @author limx
@@ -95,6 +85,16 @@ class RbacUserRole extends \Phalcon\Mvc\Model
             if ($res === false) return false;
         }
         return true;
+    }
+
+    /**
+     * Returns table name mapped in the model.
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return 'rbac_user_role';
     }
 
 }
