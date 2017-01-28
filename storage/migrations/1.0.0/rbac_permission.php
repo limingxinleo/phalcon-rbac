@@ -74,6 +74,7 @@ class RbacPermissionMigration_100 extends Migration
                 'indexes' => [
                     new Index('PRIMARY', ['id'], 'PRIMARY'),
                     new Index('URL_INDEX', ['url']),
+                    new Index('PID_INDEX', ['pid']),
                 ],
                 'options' => [
                     'TABLE_TYPE' => 'BASE TABLE',

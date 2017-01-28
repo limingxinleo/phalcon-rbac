@@ -19,8 +19,11 @@ class PermissionController extends ControllerBase
     {
         $pageIndex = $this->request->get('pageIndex');
         $pageSize = $this->request->get('pageSize');
+        $pid = $this->request->get('pid');
 
         $user = RbacPermission::find([
+            'conditions' => 'pid=?0',
+            'bind' => [$pid],
             'offset' => $pageIndex * $pageSize,
             'limit' => $pageSize
         ]);

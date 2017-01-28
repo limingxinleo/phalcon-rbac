@@ -2,6 +2,7 @@
 {% block content %}
     <ol class="breadcrumb">
         <li><a href="{{ url('/index/index') }}">首页</a></li>
+        <li><a href="{{ url('/index/permission') }}">权限列表</a></li>
         <li class="active">权限列表</li>
     </ol>
     <h1 class="page-header">
@@ -25,6 +26,8 @@
     </div>
     <input type="hidden" id="postUrl" value="{{ url('/api/permission/pfnList') }}">
     <input type="hidden" id="infoUrl" value="{{ url('/index/permissionInfo') }}">
+    <input type="hidden" id="addUrl" value="{{ url('/index/addPermission') }}">
+    <input type="hidden" id="pid" value="{{ pid }}">
 {% endblock %}
 {% block js %}
     <script src="{{ static_url('/lib/jquery-2.2.4/jquery.pagination.js') }}"></script>
@@ -46,7 +49,8 @@
         function bindData() {
             var json = {
                 pageIndex: pageIndex,
-                pageSize: pageSize
+                pageSize: pageSize,
+                pid: $("#pid").val()
             };
             var url = $("#postUrl").val();
             $.post(url, json, function (jsonData) {
@@ -60,6 +64,7 @@
                         html += '<td>' + (v.root == 1 ? "全权限" : v.url) + '</td>';
                         html += '<td>';
                         html += '<a onclick="toInfo(' + v.id + ')" class="btn btn-default">详情</a>';
+                        html += '<a onclick="btnAdd(' + v.id + ')" class="btn btn-default">新增子权限</a>';
                         html += '</td>';
                         html += '</tr>';
                     });
@@ -86,6 +91,11 @@
 
         function toInfo(id) {
             var url = $("#infoUrl").val();
+            location = url + "/" + id;
+        }
+
+        function btnAdd(id) {
+            var url = $("#addUrl").val();
             location = url + "/" + id;
         }
     </script>
