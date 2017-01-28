@@ -3,6 +3,9 @@
     <ol class="breadcrumb">
         <li><a href="{{ url('/index/index') }}">首页</a></li>
         <li><a href="{{ url('/index/permission') }}">权限列表</a></li>
+        {% for item in parent %}
+            <li><a href="{{ url('/index/permission/')~item['id'] }}">{{ item['name'] }}</a></li>
+        {% endfor %}
         <li class="active">权限新增</li>
     </ol>
     <h1 class="page-header">

@@ -44,6 +44,7 @@ class IndexController extends ControllerBase
 
     public function permissionAction($pid = 0)
     {
+        $parent = [];
         self::getPermissionParent($pid, $parent);
         krsort($parent);
         $this->view->pid = $pid;
@@ -60,7 +61,11 @@ class IndexController extends ControllerBase
      */
     public function addPermissionAction($pid)
     {
+        $parent = [];
+        self::getPermissionParent($pid, $parent);
+        krsort($parent);
         $this->view->pid = $pid;
+        $this->view->parent = $parent;
         return $this->view->render('index', 'permission_add');
     }
 
