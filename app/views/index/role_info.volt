@@ -1,8 +1,8 @@
 {% extends "master.volt" %}
 {% block content %}
     <ol class="breadcrumb">
-        <li><a href="{{ url('/index/index') }}">角色管理</a></li>
-        <li><a href="{{ url('/index/index') }}">角色列表</a></li>
+        <li><a href="{{ url('/index/index') }}">首页</a></li>
+        <li><a href="{{ url('/index/role') }}">角色列表</a></li>
         <li class="active">角色详情</li>
     </ol>
     <h1 class="page-header">角色详情</h1>

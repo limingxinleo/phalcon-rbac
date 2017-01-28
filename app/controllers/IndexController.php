@@ -42,5 +42,15 @@ class IndexController extends ControllerBase
         return $this->view->render('index', 'role_info');
     }
 
+    public function permissionAction()
+    {
+        return $this->view->render('index', 'permission');
+    }
+
+    public function addPermissionAction()
+    {
+        return $this->view->render('index', 'permission_add');
+    }
+
 
 }

@@ -2,15 +2,19 @@
 {% block content %}
     <ol class="breadcrumb">
         <li><a href="{{ url('/index/index') }}">首页</a></li>
-        <li class="active">角色列表</li>
+        <li class="active">权限列表</li>
     </ol>
-    <h1 class="page-header">角色列表</h1>
+    <h1 class="page-header">
+        权限列表
+        <a href="{{ url('/index/addPermission') }}" class="btn btn-primary" style="float:right">新增</a>
+    </h1>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
             <tr>
                 <th>ID</th>
-                <th>角色名</th>
+                <th>权限名名</th>
+                <th>权限</th>
                 <th>操作</th>
             </tr>
             </thead>
@@ -19,8 +23,8 @@
         </table>
         <div id="page"></div>
     </div>
-    <input type="hidden" id="postUrl" value="{{ url('/api/role/pfnRoleList') }}">
-    <input type="hidden" id="infoUrl" value="{{ url('/index/roleInfo') }}">
+    <input type="hidden" id="postUrl" value="{{ url('/api/permission/pfnPermissionList') }}">
+    <input type="hidden" id="infoUrl" value="{{ url('/index/permissionInfo') }}">
 {% endblock %}
 {% block js %}
     <script src="{{ static_url('/lib/jquery-2.2.4/jquery.pagination.js') }}"></script>
@@ -29,7 +33,7 @@
         var pageIndex = 0;
 
         $(function () {
-            $.setSideBar(1);
+            $.setSideBar(2);
             bindData();
         });
 
@@ -53,6 +57,7 @@
                         html += '<tr>';
                         html += '<td>' + v.id + '</td>';
                         html += '<td>' + v.name + '</td>';
+                        html += '<td>' + (v.root == 1 ? "全权限" : v.url) + '</td>';
                         html += '<td>';
                         html += '<a onclick="toInfo(' + v.id + ')" class="btn btn-default">详情</a>';
                         html += '</td>';

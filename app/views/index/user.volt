@@ -1,7 +1,7 @@
 {% extends "master.volt" %}
 {% block content %}
     <ol class="breadcrumb">
-        <li><a href="{{ url('/index/index') }}">用户管理</a></li>
+        <li><a href="{{ url('/index/index') }}">首页</a></li>
         <li><a href="{{ url('/index/index') }}">用户列表</a></li>
         <li class="active">用户详情</li>
     </ol>
