@@ -1,7 +1,7 @@
 {% extends "master.volt" %}
 {% block content %}
     <ol class="breadcrumb">
-        <li><a href="{{ url('/index/index') }}">用户管理</a></li>
+        <li><a href="{{ url('/index/index') }}">角色管理</a></li>
         <li class="active">角色列表</li>
     </ol>
     <h1 class="page-header">角色列表</h1>
@@ -19,7 +19,7 @@
         </table>
         <div id="page"></div>
     </div>
-    <input type="hidden" id="postUrl" value="{{ url('/api/user/pfnUserList') }}">
+    <input type="hidden" id="postUrl" value="{{ url('/api/role/pfnRoleList') }}">
     <input type="hidden" id="infoUrl" value="{{ url('/index/userInfo') }}">
 {% endblock %}
 {% block js %}
@@ -29,7 +29,7 @@
         var pageIndex = 0;
 
         $(function () {
-            $.setSideBar(0);
+            $.setSideBar(1);
             bindData();
         });
 
