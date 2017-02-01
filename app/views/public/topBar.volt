@@ -21,7 +21,7 @@
                         Profile <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ url('/login/index') }}">退出</a></li>
+                        <li><a href="{{ url('/login/pfnLogout') }}">退出</a></li>
                     </ul>
                 </li>
             </ul>

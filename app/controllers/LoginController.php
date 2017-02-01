@@ -41,5 +41,17 @@ class LoginController extends \Phalcon\Mvc\Controller
         return self::success([$res]);
     }
 
+    /**
+     * [pfnLogout desc]
+     * @desc 退出登录
+     * @author limx
+     * @return mixed
+     */
+    public function pfnLogoutAction()
+    {
+        $this->session->destroy();
+        return $this->response->redirect('/login/index');
+    }
+
 }
 
