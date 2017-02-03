@@ -1,3 +1,16 @@
+# RBAC 权限管理系统
+## 安装方法
+~~~
+git clone https://github.com/limingxinleo/phalcon-rbac.git
+cd phalcon-rbac
+cp .env.example .env
+修改.env中的 DB配置
+phalcon migration generate
+~~~
+## 注意事项
+* 如果没有phalcon.so扩展和phalcon命令 请到[Phalcon 文档](https://docs.phalconphp.com/zh/latest/index.html)查看如果安装扩展
+
+
 # phalcon-project
 [![Total Downloads](https://poser.pugx.org/limingxinleo/phalcon-project/downloads)](https://packagist.org/packages/limingxinleo/phalcon-project)
 [![Latest Stable Version](https://poser.pugx.org/limingxinleo/phalcon-project/v/stable)](https://packagist.org/packages/limingxinleo/phalcon-project)
