@@ -141,7 +141,7 @@ trait Init
         $name = $user->name;
         $id = $user->id;
         $token = uniqid();
-        $time = time() + 3600;
+        $time = time() + 3600 * 10;
         $data = [
             'id' => $id,
             'name' => $name,
