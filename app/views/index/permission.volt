@@ -104,19 +104,33 @@
         }
 
         function btnDel(id) {
-            $.confirm('警告', '确认要删除么？', function () {
-                var url = $("#delUrl").val();
-                var json = {
-                    id: id
-                };
-                $.post(url, json, function (jsonData) {
-                    if (jsonData.status == 1) {
-                        console.log(jsonData);
-                        $.success("删除成功！！");
-                    } else {
-                        $.error(jsonData.message);
+            $.confirm({
+                title: '警告',
+                content: '删除此权限也会同步删除此权限下的子权限？',
+                button: [
+                    {
+                        label: "取消",
+                        type: "default"
+                    },
+                    {
+                        label: "确认",
+                        type: "primary",
+                        onClick: function () {
+                            var url = $("#delUrl").val();
+                            var json = {
+                                id: id
+                            };
+                            $.post(url, json, function (jsonData) {
+                                if (jsonData.status == 1) {
+                                    console.log(jsonData);
+                                    $.success("删除成功！！");
+                                } else {
+                                    $.error(jsonData.message);
+                                }
+                            }, "json");
+                        }
                     }
-                }, "json");
+                ]
             });
         }
     </script>

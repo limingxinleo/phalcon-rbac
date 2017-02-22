@@ -18,7 +18,11 @@ jQuery.alert = function (msg, type, callback) {
         }
     });
 };
-jQuery.confirm = function (title, msg, yesCallback, noCallback) {
+jQuery.confirm = function (obj) {
+    var title = obj.title;
+    var content = obj.content;
+    var btn = obj.button;
+
     var html = "";
     html += '<div class="modal fade" id="alert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">';
     html += '<div class="modal-dialog" role="document">';
@@ -28,12 +32,12 @@ jQuery.confirm = function (title, msg, yesCallback, noCallback) {
     html += '<h4 class="modal-title" id="myModalLabel">' + title + '</h4>';
     html += '</div>';
     html += '<div class="modal-body">';
-    html += msg;
+    html += content;
     html += '</div>';
     html += '<div class="modal-footer">';
-    html += '<button type="button" class="btn btn-default" data-dismiss="modal" id="confirmNo">取消</button>';
-    html += '<button type="button" id="confirmYes" data-dismiss="modal" class="btn btn-primary">确认</button>';
-
+    for (key in btn) {
+        html += '<button type="button" class="btn btn-' + btn[key].type + '" data-dismiss="modal" id="_btn_' + key + '">' + btn[key].label + '</button>';
+    }
     html += '</div>';
     html += '</div>';
     html += '</div>';
@@ -44,15 +48,14 @@ jQuery.confirm = function (title, msg, yesCallback, noCallback) {
     $('#alert').on('hidden.bs.modal', function (e) {
         $('.modal-backdrop').remove();
     });
-    if (typeof yesCallback == "function") {
-        $("#confirmYes").on('click', function () {
-            yesCallback();
-        });
-    }
-    if (typeof noCallback == "function") {
-        $("#confirmNo").on('click', function () {
-            noCallback();
-        });
+    for (key in btn) {
+        if (typeof btn[key].onClick == "function") {
+            console.log(btn[key]);
+            $("#_btn_" + key).on('click', {key: key}, function (event) {
+                var index = event.data.key;
+                btn[index].onClick();
+            });
+        }
     }
 };
 jQuery.success = function (msg, callback) {
