@@ -29,6 +29,7 @@
     <input type="hidden" id="postUrl" value="{{ url('/api/permission/pfnList') }}">
     <input type="hidden" id="infoUrl" value="{{ url('/index/permission') }}">
     <input type="hidden" id="addUrl" value="{{ url('/index/addPermission') }}">
+    <input type="hidden" id="delUrl" value="{{ url('/api/permission/pfnDel') }}">
     <input type="hidden" id="pid" value="{{ pid }}">
 {% endblock %}
 {% block js %}
@@ -67,6 +68,7 @@
                         html += '<td>';
                         html += '<a onclick="btnInfo(' + v.id + ')" class="btn btn-default">详情</a>';
                         html += '<a onclick="btnAdd(' + v.id + ')" class="btn btn-default">新增子权限</a>';
+                        html += '<a onclick="btnDel(' + v.id + ')" class="btn btn-default">删除</a>';
                         html += '</td>';
                         html += '</tr>';
                     });
@@ -99,6 +101,23 @@
         function btnAdd(id) {
             var url = $("#addUrl").val();
             location = url + "/" + id;
+        }
+
+        function btnDel(id) {
+            $.confirm('警告', '确认要删除么？', function () {
+                var url = $("#delUrl").val();
+                var json = {
+                    id: id
+                };
+                $.post(url, json, function (jsonData) {
+                    if (jsonData.status == 1) {
+                        console.log(jsonData);
+                        $.success("删除成功！！");
+                    } else {
+                        $.error(jsonData.message);
+                    }
+                }, "json");
+            });
         }
     </script>
 {% endblock %}

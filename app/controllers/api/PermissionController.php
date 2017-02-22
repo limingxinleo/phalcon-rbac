@@ -59,6 +59,11 @@ class PermissionController extends ControllerBase
         return self::error("权限保存失败！");
     }
 
+    public function pfnDelAction()
+    {
+        return self::success();
+    }
+
 
 }
 
