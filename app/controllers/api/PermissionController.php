@@ -62,7 +62,11 @@ class PermissionController extends ControllerBase
     public function pfnDelAction()
     {
         $id = $this->request->get('id');
-        return self::success([$id]);
+        $res = RbacPermission::del($id);
+        if ($res == false) {
+            return self::error("删除失败！");
+        }
+        return self::success();
     }
 
 

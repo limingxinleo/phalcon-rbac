@@ -116,6 +116,18 @@ class RbacPermission extends \Phalcon\Mvc\Model
     }
 
     /**
+     * @desc 删除此id和pid 的权限
+     * @author limx
+     * @param $id
+     * @return mixed
+     */
+    public static function del($id)
+    {
+        $sql = "DELETE FROM rbac_permission WHERE id=? OR pid=?";
+        return \limx\phalcon\DB::execute($sql, [$id, $id]);
+    }
+
+    /**
      * Returns table name mapped in the model.
      *
      * @return string

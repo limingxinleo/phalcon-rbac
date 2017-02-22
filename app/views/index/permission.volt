@@ -122,8 +122,9 @@
                             };
                             $.post(url, json, function (jsonData) {
                                 if (jsonData.status == 1) {
-                                    console.log(jsonData);
-                                    $.success("删除成功！！");
+                                    $.success("删除成功！！", function () {
+                                        location.reload();
+                                    });
                                 } else {
                                     $.error(jsonData.message);
                                 }

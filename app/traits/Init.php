@@ -214,10 +214,13 @@ trait Init
      */
     public static function getPermissionParent($pid = 0, &$parent)
     {
-        if ($pid === 0) {
+        if (intval($pid) === 0) {
             return true;
         }
         $res = RbacPermission::findById($pid);
+        if (empty($res)) {
+            return true;
+        }
         $parent[] = $res;
         self::getPermissionParent($res['pid'], $parent);
     }
