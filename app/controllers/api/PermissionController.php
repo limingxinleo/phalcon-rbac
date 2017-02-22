@@ -61,7 +61,8 @@ class PermissionController extends ControllerBase
 
     public function pfnDelAction()
     {
-        return self::success();
+        $id = $this->request->get('id');
+        return self::success([$id]);
     }
 
 

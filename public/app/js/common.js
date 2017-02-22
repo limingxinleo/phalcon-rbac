@@ -50,7 +50,6 @@ jQuery.confirm = function (obj) {
     });
     for (key in btn) {
         if (typeof btn[key].onClick == "function") {
-            console.log(btn[key]);
             $("#_btn_" + key).on('click', {key: key}, function (event) {
                 var index = event.data.key;
                 btn[index].onClick();
