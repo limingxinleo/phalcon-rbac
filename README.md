@@ -4,7 +4,12 @@
 git clone https://github.com/limingxinleo/phalcon-rbac.git
 cd phalcon-rbac
 cp .env.example .env
-修改.env中的 DB配置
+~~~
+* 修改.env中的 DB配置
+* 修改 app/config/config.ini 中的DB配置
+* 安装phalcon脚本工具
+* 执行以下代码
+~~~
 phalcon migration generate
 ~~~
 ## 注意事项
