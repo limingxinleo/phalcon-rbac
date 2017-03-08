@@ -20,24 +20,13 @@ class RbacUserRoleMigration_100 extends Migration
         $this->morphTable('rbac_user_role', [
                 'columns' => [
                     new Column(
-                        'id',
-                        [
-                            'type' => Column::TYPE_INTEGER,
-                            'unsigned' => true,
-                            'notNull' => true,
-                            'autoIncrement' => true,
-                            'size' => 11,
-                            'first' => true
-                        ]
-                    ),
-                    new Column(
                         'user_id',
                         [
                             'type' => Column::TYPE_INTEGER,
                             'unsigned' => true,
                             'notNull' => true,
                             'size' => 11,
-                            'after' => 'id'
+                            'first' => true
                         ]
                     ),
                     new Column(
@@ -53,12 +42,10 @@ class RbacUserRoleMigration_100 extends Migration
 
                 ],
                 'indexes' => [
-                    new Index('PRIMARY', ['id'], 'PRIMARY'),
                     new Index('USER_ROLE_UNIQUE', ['user_id', 'role_id'], 'UNIQUE'),
                 ],
                 'options' => [
                     'TABLE_TYPE' => 'BASE TABLE',
-                    'AUTO_INCREMENT' => '1',
                     'ENGINE' => 'InnoDB',
                     'TABLE_COLLATION' => 'utf8_general_ci'
                 ],

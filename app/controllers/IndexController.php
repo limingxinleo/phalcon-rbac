@@ -42,6 +42,15 @@ class IndexController extends ControllerBase
         return $this->view->render('index', 'role_info');
     }
 
+    /**
+     * @desc 添加角色
+     * @author limx
+     */
+    public function addRoleAction()
+    {
+        return $this->view->render('index', 'role_add');
+    }
+
     public function permissionAction($pid = 0)
     {
         $parent = [];

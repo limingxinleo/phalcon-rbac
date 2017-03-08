@@ -20,24 +20,13 @@ class RbacRolePermissionMigration_100 extends Migration
         $this->morphTable('rbac_role_permission', [
                 'columns' => [
                     new Column(
-                        'id',
-                        [
-                            'type' => Column::TYPE_INTEGER,
-                            'unsigned' => true,
-                            'notNull' => true,
-                            'autoIncrement' => true,
-                            'size' => 11,
-                            'first' => true
-                        ]
-                    ),
-                    new Column(
                         'role_id',
                         [
                             'type' => Column::TYPE_INTEGER,
                             'unsigned' => true,
                             'notNull' => true,
                             'size' => 11,
-                            'after' => 'id'
+                            'first' => true
                         ]
                     ),
                     new Column(
@@ -52,11 +41,11 @@ class RbacRolePermissionMigration_100 extends Migration
                     ),
                 ],
                 'indexes' => [
-                    new Index('PRIMARY', ['id'], 'PRIMARY')
+                    new Index('ROLE_PERMISSION_UNIQUE', ['role_id', 'permission_id'], 'UNIQUE'),
+                    new Index('PERMISSION_INDEX', ['permission_id']),
                 ],
                 'options' => [
                     'TABLE_TYPE' => 'BASE TABLE',
-                    'AUTO_INCREMENT' => '1',
                     'ENGINE' => 'InnoDB',
                     'TABLE_COLLATION' => 'utf8_general_ci'
                 ],
@@ -73,9 +62,8 @@ class RbacRolePermissionMigration_100 extends Migration
     {
         self::$_connection->insert(
             "rbac_role_permission",
-            [1, 1, 1],
+            [1, 1],
             [
-                "id",
                 "role_id",
                 "permission_id",
             ]

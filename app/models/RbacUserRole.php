@@ -9,14 +9,6 @@ class RbacUserRole extends \Phalcon\Mvc\Model
      *
      * @var integer
      * @Primary
-     * @Identity
-     * @Column(type="integer", length=11, nullable=false)
-     */
-    public $id;
-
-    /**
-     *
-     * @var integer
      * @Column(type="integer", length=11, nullable=false)
      */
     public $user_id;
@@ -24,6 +16,7 @@ class RbacUserRole extends \Phalcon\Mvc\Model
     /**
      *
      * @var integer
+     * @Primary
      * @Column(type="integer", length=11, nullable=false)
      */
     public $role_id;
