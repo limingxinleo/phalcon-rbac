@@ -4,21 +4,23 @@
     <ol class="breadcrumb">
         <li><a href="{{ url('/index/index') }}">首页</a></li>
         <li><a href="{{ url('/index/role') }}">角色列表</a></li>
-        <li class="active">角色新增</li>
+        <li class="active">{{ title }}</li>
     </ol>
     <h1 class="page-header">
-        角色新增
+        {{ title }}
     </h1>
     <div class="row">
         <div class="col-sm-6 col-md-4">
             <form>
                 <div class="form-group">
                     <label for="exampleInputEmail1">角色名</label>
-                    <input type="text" class="form-control" id="role" placeholder="角色名">
+                    <input type="text" class="form-control" id="role" placeholder="角色名"
+                           value="{{ role.name|default('') }}">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">角色介绍</label>
-                    <input type="text" class="form-control" id="desc" placeholder="角色名">
+                    <input type="text" class="form-control" id="desc" placeholder="角色介绍"
+                           value="{{ role.desc|default('') }}">
                 </div>
                 <div class="zTreeDemoBackground left">
                     <ul id="list" class="ztree"></ul>
@@ -28,9 +30,10 @@
         </div>
     </div>
 
-    <input type="hidden" id="saveUrl" value="{{ url('/api/role/pfnSave') }}">
+    <input type="hidden" id="saveUrl" value="{{ url('/api/role/pfnSave/')~role_id }}">
     <input type="hidden" id="postUrl" value="{{ url('/api/permission/pfnAllList') }}">
     <input type="hidden" id="redirectUrl" value="{{ url('/index/role') }}">
+    <input type="hidden" id="roleId" value="{{ role_id }}">
 {% endblock %}
 {% block js %}
     <script src="{{ static_url('/lib/zTree_v3/js/jquery.ztree.core.js') }}"></script>
@@ -43,7 +46,7 @@
 
         function bindData() {
             var json = {
-                uid: $("#id").val()
+                role_id: $("#roleId").val()
             };
             var url = $("#postUrl").val();
             $.post(url, json, function (jsonData) {
@@ -51,7 +54,12 @@
                 if (jsonData.status == 1) {
                     var zNodes = [];
                     $.each(jsonData.data, function (i, v) {
-                        zNodes.push({id: v.id, pId: v.pid, name: v.name});
+                        zNodes.push({
+                            id: v.id,
+                            pId: v.pid,
+                            name: v.name,
+                            checked: v.is_checked > 0 ? true : false
+                        });
                     });
                     initZtree(zNodes);
                 } else {

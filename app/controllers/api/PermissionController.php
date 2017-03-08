@@ -41,12 +41,8 @@ class PermissionController extends ControllerBase
      */
     public function pfnAllListAction()
     {
-        $permission = RbacPermission::find([
-            'cache' => [
-                'key' => 'CACHE-PERMISSION-LIST',
-                'lifetime' => 600,
-            ],
-        ]);
+        $role_id = $this->request->get('role_id');
+        $permission = RbacPermission::allByRoleId($role_id);
         return self::success($permission);
     }
 

@@ -127,6 +127,23 @@ class RbacPermission extends \Phalcon\Mvc\Model
         return \limx\phalcon\DB::execute($sql, [$id, $id]);
     }
 
+    public static function allByRoleId($role_id)
+    {
+        $key = sprintf("PERMISSION-BY-ROLEID-%d", $role_id);
+        $cache = di('cache');
+        $res = $cache->get($key);
+        if ($res) {
+            return $res;
+        }
+        $sql = "SELECT p.*,IFNULL((SELECT id 
+            FROM rbac_role_permission 
+            WHERE role_id=? AND permission_id = p.id),0) AS is_checked 
+            FROM rbac_permission AS p; ";
+        $res = \limx\phalcon\DB::query($sql, [$role_id]);
+        $cache->save($key, $res);
+        return $res;
+    }
+
     /**
      * @desc 增加某角色的权限关系表
      * @author limx
@@ -137,6 +154,9 @@ class RbacPermission extends \Phalcon\Mvc\Model
             // 无法操作超级管理员权限
             return false;
         }
+        $key = sprintf("PERMISSION-BY-ROLEID-%d", $role_id);
+        $cache = di('cache');
+        $cache->delete($key);
         // 删除之前的权限列表
         \limx\phalcon\DB::begin();
         $sql = "DELETE FROM rbac_role_permission WHERE role_id  = ?;";

@@ -60,6 +60,7 @@
                         html += '<td>' + v.name + '</td>';
                         html += '<td>';
                         html += '<a onclick="toInfo(' + v.id + ')" class="btn btn-default">详情</a>';
+                        html += '<a onclick="toEdit(' + v.id + ')" class="btn btn-default">编辑</a>';
                         html += '</td>';
                         html += '</tr>';
                     });
@@ -86,6 +87,11 @@
 
         function toInfo(id) {
             var url = $("#infoUrl").val();
+            location = url + "/" + id;
+        }
+
+        function toEdit(id) {
+            var url = $("#addUrl").val();
             location = url + "/" + id;
         }
 

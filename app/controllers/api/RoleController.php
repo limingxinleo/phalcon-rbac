@@ -64,6 +64,7 @@ class RoleController extends ControllerBase
                 return self::error("权限保存失败！");
             }
         }
+        // 清除缓存
 
         return self::success([$role->id]);
     }

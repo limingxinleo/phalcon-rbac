@@ -46,8 +46,12 @@ class IndexController extends ControllerBase
      * @desc 添加角色
      * @author limx
      */
-    public function addRoleAction()
+    public function addRoleAction($role_id = 0)
     {
+        $role = RbacRole::findFirst($role_id);
+        $this->view->role = $role;
+        $this->view->title = $role_id > 0 ? "角色编辑" : "角色新增";
+        $this->view->role_id = $role_id;
         return $this->view->render('index', 'role_add');
     }
 
