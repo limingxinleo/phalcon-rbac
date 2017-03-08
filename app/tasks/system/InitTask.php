@@ -15,7 +15,53 @@ use Phalcon\Cli\Task;
 
 class InitTask extends Task
 {
+    /**
+     * @desc 初始化命名空间
+     * @author limx
+     */
     public function mainAction()
+    {
+        echo Color::head('Help:') . PHP_EOL;
+        echo Color::colorize('  系统初始化脚本') . PHP_EOL . PHP_EOL;
+
+        echo Color::head('Usage:') . PHP_EOL;
+        echo Color::colorize('  php run Test\\\\Init [action]', Color::FG_GREEN) . PHP_EOL . PHP_EOL;
+
+        echo Color::head('Actions:') . PHP_EOL;
+        echo Color::colorize('  storage                         初始化仓库', Color::FG_GREEN) . PHP_EOL;
+        echo Color::colorize('  namespace                       初始化命名空间', Color::FG_GREEN) . PHP_EOL;
+        echo Color::colorize('  key     [key] [--random|val]    初始化配置参数', Color::FG_GREEN) . PHP_EOL;
+    }
+
+    /**
+     * @desc 初始化仓库
+     * @author limx
+     */
+    public function storageAction()
+    {
+        $config = di('config')->application;
+        $creatRoot = [
+            'cache.data' => $config->cacheDir . 'data/',
+            'cache.view' => $config->cacheDir . 'view/',
+            'log' => $config->logDir,
+            'meta' => $config->metaDataDir,
+            'migrations' => $config->migrationsDir,
+        ];
+        echo Color::head('仓库初始化') . PHP_EOL;
+        foreach ($creatRoot as $i => $v) {
+            if (!is_dir($v)) {
+                mkdir($v, 0777, true);
+                echo Color::colorize(sprintf("  新建%s成功", $i), Color::BG_GREEN) . PHP_EOL;
+            }
+        }
+        echo Color::success("The Storage was successfully created.");
+    }
+
+    /**
+     * @desc 初始化命名空间
+     * @author limx
+     */
+    public function namespaceAction()
     {
         echo Color::head('命名空间初始化') . PHP_EOL;
         echo Color::colorize('  默认的命名空间是MyApp', Color::BG_GREEN) . PHP_EOL;
@@ -37,24 +83,30 @@ class InitTask extends Task
         echo Color::success("You're now flying with Phalcon.");
     }
 
-    public function storageAction()
+    /**
+     * @desc 初始化配置KEY
+     * @author limx
+     */
+    public function keyAction($params = [])
     {
-        $config = di('config')->application;
-        $creatRoot = [
-            'cache.data' => $config->cacheDir . 'data/',
-            'cache.view' => $config->cacheDir . 'view/',
-            'log' => $config->logDir,
-            'meta' => $config->metaDataDir,
-            'migrations' => $config->migrationsDir,
-        ];
-        echo Color::head('仓库初始化') . PHP_EOL;
-        foreach ($creatRoot as $i => $v) {
-            if (!is_dir($v)) {
-                mkdir($v, 0777, true);
-                echo Color::colorize(sprintf("  新建%s成功", $i), Color::BG_GREEN) . PHP_EOL;
-            }
+        if (count($params) < 2) {
+            echo Color::error("请输入要初始化的KEY与VAL");
+            return false;
         }
-        echo Color::success("The Storage was successfully created.");
+        $key = strtoupper($params[0]);
+        $val = $params[1];
+        if ($val == '--random') {
+            $val = base64_encode(uniqid());
+        }
+        echo Color::head($key . '初始化') . PHP_EOL;
+        $pattern = "/^{$key}=.*/m";
+        file_put_contents(BASE_PATH . '/.env', preg_replace(
+            $pattern,
+            $key . '=' . $val,
+            file_get_contents(BASE_PATH . '/.env')
+        ));
+        echo Color::success($key . " was successfully changed.");
+
     }
 
 }
