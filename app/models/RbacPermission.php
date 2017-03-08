@@ -128,6 +128,37 @@ class RbacPermission extends \Phalcon\Mvc\Model
     }
 
     /**
+     * @desc 增加某角色的权限关系表
+     * @author limx
+     */
+    public static function addByRoleId($role_id, $permission)
+    {
+        if ($role_id == 1) {
+            // 无法操作超级管理员权限
+            return false;
+        }
+        // 删除之前的权限列表
+        \limx\phalcon\DB::begin();
+        $sql = "DELETE FROM rbac_role_permission WHERE role_id  = ?;";
+        $res = \limx\phalcon\DB::execute($sql, [$role_id]);
+        if ($res === false) {
+            \limx\phalcon\DB::rollback();
+            return false;
+        }
+        $sql = "INSERT INTO rbac_role_permission (role_id,permission_id) VALUES (?,?);";
+        foreach ($permission as $item) {
+            $res = \limx\phalcon\DB::execute($sql, [$role_id, $item]);
+            if ($res === false) {
+                \limx\phalcon\DB::rollback();
+                return false;
+            }
+        }
+        \limx\phalcon\DB::commit();
+        return true;
+    }
+
+
+    /**
      * Returns table name mapped in the model.
      *
      * @return string

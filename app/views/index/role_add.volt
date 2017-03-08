@@ -16,10 +16,13 @@
                     <label for="exampleInputEmail1">角色名</label>
                     <input type="text" class="form-control" id="role" placeholder="角色名">
                 </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">角色介绍</label>
+                    <input type="text" class="form-control" id="desc" placeholder="角色名">
+                </div>
                 <div class="zTreeDemoBackground left">
                     <ul id="list" class="ztree"></ul>
                 </div>
-
                 <a onclick="btnSave()" class="btn btn-default">保存</a>
             </form>
         </div>
@@ -83,13 +86,16 @@
                 $.error("请输入角色名称");
                 return;
             }
+            var desc = $("#desc").val();
             var json = {
                 role: role,
+                desc: desc,
                 permission: permission
             };
             var url = $("#saveUrl").val();
             $.post(url, json, function (jsonData) {
                 if (jsonData.status == 1) {
+                    console.log(jsonData);
                     $.success("保存成功！", function () {
                         location = $("#redirectUrl").val();
                     });
