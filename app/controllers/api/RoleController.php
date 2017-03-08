@@ -39,5 +39,10 @@ class RoleController extends ControllerBase
         return self::success($roles);
     }
 
+    public function pfnSaveAction()
+    {
+        return self::error("未实现！");
+    }
+
 }
 
