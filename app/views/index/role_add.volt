@@ -15,24 +15,47 @@
                     <label for="exampleInputEmail1">角色名</label>
                     <input type="text" class="form-control" id="name" placeholder="角色名">
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">权限</label>
-                    <input type="text" class="form-control" id="url" placeholder="module-controller-action">
-                </div>
+                <div id="list"></div>
+
                 <a onclick="btnSave()" class="btn btn-default">保存</a>
             </form>
         </div>
     </div>
 
-    <input type="hidden" id="pid" value="{{ pid }}">
-    <input type="hidden" id="saveUrl" value="{{ url('/api/permission/pfnSave') }}">
-    <input type="hidden" id="redirectUrl" value="{{ url('/index/permission') }}">
+    <input type="hidden" id="saveUrl" value="{{ url('/api/role/pfnSave') }}">
+    <input type="hidden" id="postUrl" value="{{ url('/api/permission/pfnAllList') }}">
 {% endblock %}
 {% block js %}
     <script>
         $(function () {
             $.setSideBar(1);
+            bindData();
         });
+
+        function bindData() {
+            var json = {
+                uid: $("#id").val()
+            };
+            var url = $("#postUrl").val();
+            $.post(url, json, function (jsonData) {
+                console.log(jsonData);
+                if (jsonData.status == 1) {
+                    var html = "";
+                    $.each(jsonData.data, function (i, v) {
+                        var checked = v.status > 0 ? "checked=checked" : "";
+                        html += '<div class="checkbox">';
+                        html += '<label>';
+                        html += '<input name="role" type="checkbox" value="' + v.id + '" ' + checked + '>';
+                        html += v.name + ' | ' + v.desc;
+                        html += '</label>';
+                        html += '</div>';
+                    });
+                    $("#list").html(html);
+                } else {
+                    $.error(jsonData.message);
+                }
+            }, "json");
+        }
 
         function btnSave() {
             var pid = $("#pid").val();

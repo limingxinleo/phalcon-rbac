@@ -36,6 +36,15 @@ class PermissionController extends ControllerBase
     }
 
     /**
+     * @desc 获取所有权限
+     * @author limx
+     */
+    public function pfnAllListAction()
+    {
+        $permission = RbacPermission::find();
+    }
+
+    /**
      * [pfnSave desc]
      * @desc 保存权限
      * @author limx

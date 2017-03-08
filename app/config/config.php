@@ -113,6 +113,7 @@ return new Config(
             'tasksDir' => APP_PATH . '/tasks/',
             'pluginsDir' => APP_PATH . '/plugins/',
             'libraryDir' => APP_PATH . '/library/',
+            'listenersDir' => APP_PATH . '/listeners/',
             'traitsDir' => APP_PATH . '/traits/',
             'servicesDir' => APP_PATH . '/services/',
             'cacheDir' => BASE_PATH . '/storage/cache/',
@@ -141,7 +142,7 @@ return new Config(
         |
         */
         'log' => [
-            'sql' => env('LOG_SQL', true),
+            'db' => env('LOG_DB', true),
             'error' => env('LOG_ERROR', true),
         ],
 
