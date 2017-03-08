@@ -129,7 +129,7 @@ class RbacPermission extends \Phalcon\Mvc\Model
 
     public static function allByRoleId($role_id)
     {
-        $key = sprintf("PERMISSION-BY-ROLEID-%d", $role_id);
+        $key = sprintf("CACHE-PERMISSION-BY-ROLEID-%d", $role_id);
         $cache = di('cache');
         $res = $cache->get($key);
         if ($res) {
@@ -154,7 +154,7 @@ class RbacPermission extends \Phalcon\Mvc\Model
             // 无法操作超级管理员权限
             return false;
         }
-        $key = sprintf("PERMISSION-BY-ROLEID-%d", $role_id);
+        $key = sprintf("CACHE-PERMISSION-BY-ROLEID-%d", $role_id);
         $cache = di('cache');
         $cache->delete($key);
         // 删除之前的权限列表

@@ -12,13 +12,22 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Settings</a></li>
-                <li><a href="#">Help</a></li>
+                <li><a href="{{ url('/index/index') }}">首页</a></li>
                 <li role="presentation" class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
                        aria-expanded="false">
-                        Profile <span class="caret"></span>
+                        菜单 <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ url('/index/index') }}">用户管理</a></li>
+                        <li><a href="{{ url('/index/role') }}">角色管理</a></li>
+                        <li><a href="{{ url('index/permission') }}">权限管理</a></li>
+                    </ul>
+                </li>
+                <li role="presentation" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        设置 <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="{{ url('/login/pfnLogout') }}">退出</a></li>
