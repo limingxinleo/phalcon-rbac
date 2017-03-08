@@ -35,7 +35,8 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="{{ static_url('/lib/jquery-2.2.4/jquery.min.js') }}"></script>
 <script src="{{ static_url('/lib/bootstrap-3.3.7/js/bootstrap.min.js') }}"></script>
-<script src="{{ static_url('/app/js/common.js?v=1.0.12') }}"></script>
+<script src="{{ static_url('/app/js/helper.jquery.js?v=1.1.0') }}"></script>
+<script src="{{ static_url('/app/js/common.js?v=1.1.0') }}"></script>
 {% block js %}{% endblock %}
 </body>
 </html>

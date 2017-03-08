@@ -31,6 +31,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="{{ url('/login/pfnLogout') }}">退出</a></li>
+                        <li><a onclick="clearCache(this)" data-url="{{ url('/api/index/clearCache') }}">清除缓存</a></li>
                     </ul>
                 </li>
             </ul>
