@@ -1,22 +1,21 @@
 <?php
 // +----------------------------------------------------------------------
-// | InitTask 初始化脚本 [ WE CAN DO IT JUST THINK IT ]
+// | 初始化脚本 [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2016 http://www.lmx0536.cn All rights reserved.
+// | Copyright (c) 2016-2017 limingxinleo All rights reserved.
 // +----------------------------------------------------------------------
-// | Author: limx <715557344@qq.com> <http://www.lmx0536.cn>
-// +----------------------------------------------------------------------
-// | Date: 2016/11/10 Time: 11:07
+// | Author: limx <715557344@qq.com> <https://github.com/limingxinleo>
 // +----------------------------------------------------------------------
 namespace MyApp\Tasks\System;
 
 use limx\phalcon\Cli\Color;
+use limx\phalcon\Utils\Str;
 use Phalcon\Cli\Task;
 
 class InitTask extends Task
 {
     /**
-     * @desc 初始化命名空间
+     * @desc   初始化命名空间
      * @author limx
      */
     public function mainAction()
@@ -34,7 +33,7 @@ class InitTask extends Task
     }
 
     /**
-     * @desc 初始化仓库
+     * @desc   初始化仓库
      * @author limx
      */
     public function storageAction()
@@ -58,7 +57,7 @@ class InitTask extends Task
     }
 
     /**
-     * @desc 初始化命名空间
+     * @desc   初始化命名空间
      * @author limx
      */
     public function namespaceAction()
@@ -84,7 +83,7 @@ class InitTask extends Task
     }
 
     /**
-     * @desc 初始化配置KEY
+     * @desc   初始化配置KEY
      * @author limx
      */
     public function keyAction($params = [])
@@ -94,19 +93,39 @@ class InitTask extends Task
             return false;
         }
         $key = strtoupper($params[0]);
-        $val = $params[1];
-        if ($val == '--random') {
-            $val = base64_encode(uniqid());
-        }
+        $val = static::random($params[1]);
         echo Color::head($key . '初始化') . PHP_EOL;
         $pattern = "/^{$key}=.*/m";
-        file_put_contents(BASE_PATH . '/.env', preg_replace(
+        file_put_contents(ROOT_PATH . '/.env', preg_replace(
             $pattern,
             $key . '=' . $val,
-            file_get_contents(BASE_PATH . '/.env')
+            file_get_contents(ROOT_PATH . '/.env')
         ));
         echo Color::success($key . " was successfully changed.");
 
+    }
+
+    private static function random($val)
+    {
+        $len = rand(12, 50);
+        $res = $val;
+        switch ($val) {
+            case "--random-base64":
+                $res = base64_encode(Str::random($len));
+                break;
+
+            case "--random-md5":
+                $res = md5(Str::random($len));
+                break;
+
+            case "--random":
+                $res = Str::random($len);
+                break;
+
+            default:
+                break;
+        }
+        return $res;
     }
 
 }
